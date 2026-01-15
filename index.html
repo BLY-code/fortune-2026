@@ -24,6 +24,7 @@
         .decoration {
             position: absolute;
             z-index: 1;
+            pointer-events: none;
         }
 
         .lantern {
@@ -151,6 +152,7 @@
             100% { transform: scale(1); }
         }
 
+        /* 选择卡片样式 */
         .selection-card {
             background: white;
             border-radius: 20px;
@@ -181,6 +183,12 @@
             color: #2d3436;
             margin-bottom: 10px;
             font-weight: bold;
+        }
+
+        .selection-hint {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
         }
 
         .zodiac-grid {
@@ -220,6 +228,22 @@
             background: linear-gradient(135deg, #fff5f5, #ffeaa7);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        /* 生肖特殊边框效果 */
+        .zodiac-btn.special-border {
+            position: relative;
+            border: 3px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                      linear-gradient(135deg, #ff6b6b, #4b7bec, #ffd32a) border-box;
+            animation: border-rotate 2s linear infinite;
+        }
+
+        @keyframes border-rotate {
+            0% { background: linear-gradient(white, white) padding-box,
+                           linear-gradient(0deg, #ff6b6b, #4b7bec, #ffd32a) border-box; }
+            100% { background: linear-gradient(white, white) padding-box,
+                           linear-gradient(360deg, #ff6b6b, #4b7bec, #ffd32a) border-box; }
         }
 
         .zodiac-emoji {
@@ -270,6 +294,7 @@
             margin-bottom: 5px;
         }
 
+        /* 预测按钮样式 */
         .predict-btn {
             display: block;
             width: 100%;
@@ -295,6 +320,7 @@
             transform: translateY(1px);
         }
 
+        /* 运势结果样式 */
         .fortune-result {
             background: white;
             border-radius: 20px;
@@ -405,33 +431,6 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
-        .new-year-count {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .count-item {
-            background: rgba(255,255,255,0.1);
-            padding: 10px 20px;
-            border-radius: 10px;
-            min-width: 80px;
-        }
-
-        .count-number {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ffd32a;
-            display: block;
-        }
-
-        .count-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
         /* 加载动画 */
         .loading {
             display: none;
@@ -453,6 +452,147 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* 结果评级星星 */
+        .rating-stars {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .star {
+            font-size: 2rem;
+            color: #ddd;
+        }
+
+        .star.active {
+            color: #ffd32a;
+            animation: star-pulse 1s infinite alternate;
+        }
+
+        @keyframes star-pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.2); }
+        }
+
+        /* 互动按钮 */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #ff6b6b, #ffa502);
+            color: white;
+        }
+
+        .action-btn.secondary {
+            background: #f1f2f6;
+            color: #666;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* 惊喜彩蛋弹窗样式 */
+        .surprise-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            z-index: 1000;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 90%;
+            width: 400px;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+        }
+
+        .surprise-modal.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .surprise-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 虚拟红包样式 */
+        .virtual-red-envelope {
+            position: fixed;
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 100;
+            transition: transform 0.3s;
+            animation: float-envelope 6s ease-in-out infinite;
+        }
+
+        .virtual-red-envelope:hover {
+            transform: scale(1.3) rotate(15deg);
+        }
+
+        @keyframes float-envelope {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* 点击特效 */
+        .click-effect {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1001;
+            animation: float-up 1s ease-out forwards;
+        }
+
+        @keyframes float-up {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -100px) scale(0.5); opacity: 0; }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -471,6 +611,9 @@
         <div class="firework"></div>
     </div>
 
+    <!-- 虚拟红包容器 -->
+    <div id="redEnvelopeContainer"></div>
+
     <div class="container">
         <!-- 头部 -->
         <div class="header">
@@ -485,6 +628,7 @@
         <div class="selection-card">
             <div class="selection-group">
                 <label class="selection-label">第一步：选择你的生肖</label>
+                <p class="selection-hint">点击你的生肖，看看2026年会给你带来什么惊喜！</p>
                 <div class="zodiac-grid" id="zodiacGrid">
                     <!-- 生肖按钮将通过JS生成 -->
                 </div>
@@ -492,6 +636,7 @@
 
             <div class="selection-group">
                 <label class="selection-label">第二步：选择关心领域</label>
+                <p class="selection-hint">选择一个你最想了解的领域</p>
                 <div class="field-grid" id="fieldGrid">
                     <!-- 领域按钮将通过JS生成 -->
                 </div>
@@ -499,6 +644,16 @@
 
             <button class="predict-btn" onclick="getFortuneResult()" id="predictBtn">
                 <i class="fas fa-crystal-ball"></i> 立即预测我的2026运势
+            </button>
+
+            <!-- 随机抽签按钮 -->
+            <button class="action-btn secondary" onclick="drawRandomFortune()" style="margin-top: 15px;">
+                <i class="fas fa-random"></i> 随机抽签试试手气
+            </button>
+            
+            <!-- 惊喜彩蛋按钮 -->
+            <button class="action-btn primary" onclick="triggerSurpriseManually()" style="margin-top: 15px;">
+                <i class="fas fa-gift"></i> 点击领取惊喜彩蛋
             </button>
         </div>
 
@@ -513,6 +668,12 @@
             <div class="result-header">
                 <h2 class="result-title" id="fortuneTitle"></h2>
                 <p class="result-subtitle" id="fortuneSubtitle"></p>
+                
+                <!-- 运势评级 -->
+                <div class="rating-stars" id="ratingStars">
+                    <!-- 星星将通过JS生成 -->
+                </div>
+                <p id="fortuneLevel" style="color: #666; font-size: 0.9rem;"></p>
             </div>
 
             <div class="fortune-section">
@@ -533,19 +694,116 @@
 
             <div class="disclaimer-box" id="disclaimer"></div>
 
-            <button class="predict-btn" onclick="shareFortune()" style="margin-top: 20px; background: linear-gradient(135deg, #4b7bec, #3867d6);">
-                <i class="fas fa-share-alt"></i> 分享好运给朋友
-            </button>
+            <div class="action-buttons">
+                <button class="action-btn primary" onclick="shareFortune()">
+                    <i class="fas fa-share-alt"></i> 分享好运
+                </button>
+                <button class="action-btn secondary" onclick="resetSelection()">
+                    <i class="fas fa-redo"></i> 重新预测
+                </button>
+            </div>
         </div>
 
         <!-- 页脚 -->
         <div class="footer">
             <p class="blessing">🎉 祝您在新的一年里：<br>
-                福星高照，万事如意，心想事成，马到成功！</p>            
+                福星高照，万事如意，心想事成，马到成功！</p>
+        </div>
+    </div>
 
-    <!-- 这里插入上面的JavaScript数据 -->
+    <!-- 惊喜彩蛋弹窗 -->
+    <div class="modal-overlay" id="modalOverlay" onclick="hideSurprise()"></div>
+    <div class="surprise-modal" id="surpriseModal">
+        <div class="surprise-icon" id="surpriseIcon">🎁</div>
+        <h3 id="surpriseTitle">惊喜彩蛋！</h3>
+        <p id="surpriseContent">加载中...</p>
+        <button class="action-btn primary" onclick="hideSurprise()" style="margin-top: 20px; padding: 10px 30px;">
+            收下惊喜
+        </button>
+    </div>
+
     <script>
-// 运势数据库
+        // 生肖和领域映射
+        const zodiacOptions = [
+            {key: 'shu', name: '鼠', emoji: '🐭'},
+            {key: 'niu', name: '牛', emoji: '🐮'},
+            {key: 'hu', name: '虎', emoji: '🐯'},
+            {key: 'tu', name: '兔', emoji: '🐰'},
+            {key: 'long', name: '龙', emoji: '🐉'},
+            {key: 'she', name: '蛇', emoji: '🐍'},
+            {key: 'ma', name: '马', emoji: '🐎'},
+            {key: 'yang', name: '羊', emoji: '🐑'},
+            {key: 'hou', name: '猴', emoji: '🐵'},
+            {key: 'ji', name: '鸡', emoji: '🐔'},
+            {key: 'gou', name: '狗', emoji: '🐶'},
+            {key: 'zhu', name: '猪', emoji: '🐷'}
+        ];
+
+        const fieldOptions = [
+            {key: 'shiye', name: '事业', emoji: '💼'},
+            {key: 'caiyun', name: '财运', emoji: '💰'},
+            {key: 'ganqing', name: '感情', emoji: '💖'},
+            {key: 'jiankang', name: '健康', emoji: '🏃'}
+        ];
+
+        // 惊喜彩蛋内容库
+        const surpriseContents = [
+            {
+                icon: "🎯",
+                title: "幸运发现！",
+                content: "恭喜你发现隐藏彩蛋！根据系统记录，你是今天第" + Math.floor(Math.random()*100) + "位访客，获得'马年先锋'称号！"
+            },
+            {
+                icon: "💰",
+                title: "财运预测",
+                content: "系统检测到你有超强财运潜力！2026年可能有意外之财，记得多关注投资机会哦！"
+            },
+            {
+                icon: "❤️",
+                title: "桃花运提示",
+                content: "你的桃花运正在路上！今年春天可能会遇到特别的人，记得多参加社交活动！"
+            },
+            {
+                icon: "🏆",
+                title: "事业锦囊",
+                content: "职场运势看涨！下半年可能有重要晋升机会，提前做好准备吧！"
+            },
+            {
+                icon: "🎁",
+                title: "隐藏福利",
+                content: "检测到你会有意外之喜，2026多多期待哦！"
+            },
+            {
+                icon: "✨",
+                title: "好运加倍",
+                content: "今日运势加成：所有预测结果自动提升1颗星！"
+            },
+            {
+                icon: "🎨",
+                title: "创意无限",
+                content: "你的创造力将在2026年达到顶峰，大胆尝试新项目吧！"
+            },
+            {
+                icon: "🤝",
+                title: "贵人相助",
+                content: "2026年你将遇到重要贵人，记得保持开放心态，接受帮助！"
+            }
+        ];
+
+        // 虚拟红包奖励内容
+        const redEnvelopeRewards = [
+            "🎊 福气+100",
+            "💰 财运+88",
+            "❤️ 桃花运+66",
+            "🏆 事业运+99",
+            "✨ 好运连连",
+            "🎯 心想事成",
+            "🌟 星光灿烂",
+            "💫 鸿运当头",
+            "🍀 万事如意",
+            "🎉 喜气洋洋"
+        ];
+         // 运势数据库
 const fortuneData = {
   // 鼠
   shu_shiye: {
@@ -553,7 +811,7 @@ const fortuneData = {
     zodiac: "鼠",
     field: "事业",
     emoji: "🐭",
-    overall: "属鼠的你，2026年事业运像开了'倍速模式'！细节控的你将在项目复盘和流程优化中大放异彩。",
+    overall: "属鼠的你，2026年事业运如同精密齿轮悄然咬合——每一个细节都可能成为破局关键。你敏锐的观察力和高效的执行力，将在项目复盘、流程优化甚至跨部门协作中大放异彩，成为团队里那个‘总能想到下一步’的人。",
     tip: "主动分享你的高效方法，团队会把你当'效率锦囊'；\n别怕提新点子，老板正缺一个敢想的人！",
     encouragement: "小身材，大能量——你的方案，就是今年的爆款！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -563,7 +821,7 @@ const fortuneData = {
     zodiac: "鼠",
     field: "财运",
     emoji: "💰",
-    overall: "属鼠的朋友，2026年财运藏在'精打细算'里！副业灵感可能来自一次闲聊，年终奖有望超预期。",
+    overall: "属鼠的朋友，2026年财运藏在‘精打细算’与‘灵光一闪’之间。副业灵感可能来自一次茶水间闲聊，年终奖或项目分红有望超预期。你的理财直觉正在觉醒，但记得：稳中求进比一夜暴富更可持续。",
     tip: "记账APP别卸载，每一笔都是未来的底气；\n投资前先问自己：'这钱亏了会影响我吃火锅吗？'",
     encouragement: "会攒也会花，钱包鼓鼓笑哈哈！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -573,7 +831,7 @@ const fortuneData = {
     zodiac: "鼠",
     field: "感情",
     emoji: "💖",
-    overall: "属鼠的你，2026年感情运悄悄升温！单身者可能在团建或学习场合遇见心动对象；有伴的默契值拉满。",
+    overall: "属鼠的你，2026年感情运如春溪潺潺，悄然升温。单身者可能在团建、培训或兴趣社群中遇见心动对象；有伴的你们默契值拉满，一个眼神就能读懂彼此。你的细腻与体贴，是维系关系最温柔的纽带。",
     tip: "多说'我在听'，比'我懂了'更暖；\n别把工作情绪带回家，爱需要温柔切换。",
     encouragement: "心细如你，值得被稳稳接住。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -583,7 +841,7 @@ const fortuneData = {
     zodiac: "鼠",
     field: "健康",
     emoji: "🏃",
-    overall: "属鼠的你，2026年健康关键词是'动静平衡'！久坐族要警惕肩颈报警，但你的自律力是天然优势。",
+    overall: "属鼠的你，2026年健康关键词是‘动静平衡’。久坐办公易引发肩颈警报，但你天生的自律力是最大优势。只要稍加规划，就能在忙碌中守住身体的节奏，让精力持续在线。",
     tip: "设个'起身喝水'闹钟，每小时动3分钟；\n睡前10分钟冥想，胜过熬夜刷手机。",
     encouragement: "身体是1，其他都是0——你值得最好的状态！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -595,7 +853,7 @@ const fortuneData = {
     zodiac: "牛",
     field: "事业",
     emoji: "🐮",
-    overall: "属牛的你，2026年事业靠'稳扎稳打'赢口碑！重大项目可能交到你手上，耐心是你最大的王牌。",
+    overall: "属牛的你，2026年事业靠‘稳扎稳打’赢得口碑与信任。重大项目可能交到你手上，不是因为你最快，而是因为你最可靠。耐心、责任感和一丝不苟的态度，让你成为团队中不可或缺的‘定海神针’。",
     tip: "学会适当'示弱'，求助不是软弱；\n每完成一个小目标，给自己一个小奖励。",
     encouragement: "默默耕耘的人，终将站在聚光灯下。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -605,7 +863,7 @@ const fortuneData = {
     zodiac: "牛",
     field: "财运",
     emoji: "💰",
-    overall: "属牛的朋友，2026年财运来自'长期主义'！储蓄计划见效，意外之财可能来自老客户返单。",
+    overall: "属牛的朋友，2026年财运来自‘长期主义’的胜利。储蓄计划开始见效，老客户返单、年度奖金或绩效提成可能带来意外之喜。你不追求快钱，但每一分收入都扎实稳健，安全感满满。",
     tip: "别盲目跟风投资，你擅长的是'慢富'；\n年终奖到账后，先存再花，安全感拉满。",
     encouragement: "踏实赚钱，安心花钱，生活稳稳幸福。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -615,7 +873,7 @@ const fortuneData = {
     zodiac: "牛",
     field: "感情",
     emoji: "💖",
-    overall: "属牛的你，2026年感情需要'主动一点'！你的真诚是稀缺品，但也要学会表达心意。",
+    overall: "属牛的你，2026年感情需要‘主动一点’。你的真诚是稀缺品，但沉默有时会被误解为冷淡。试着用行动+语言双重表达心意——一句‘今天想你了’，可能比十次默默付出更打动人心。",
     tip: "约TA喝杯咖啡，比等对方猜心思更有效；\n爱是行动，一句'今天辛苦了'胜过沉默。",
     encouragement: "你值得被温柔以待，也请勇敢去爱。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -625,7 +883,7 @@ const fortuneData = {
     zodiac: "牛",
     field: "健康",
     emoji: "🧘",
-    overall: "属牛的你，2026年健康重点是'释放压力'！别总扛着，你的肩膀也需要休息。",
+    overall: "属牛的你，2026年健康重点是‘释放压力’。你习惯扛事，但肩膀也需要休息。学会适时说‘不’，保护自己的精力边界，才能长久地照顾好家人和工作。",
     tip: "每周安排一次户外散步，哪怕只有20分钟；\n学会说'不'，保护自己的精力边界。",
     encouragement: "照顾好自己，才是对家人最大的负责。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -637,7 +895,7 @@ const fortuneData = {
     zodiac: "虎",
     field: "事业",
     emoji: "🐯",
-    overall: "属虎的你，2026年事业充满'突破感'！新挑战=新机会，你的魄力会让领导眼前一亮。",
+    overall: "属虎的你，2026年事业充满‘突破感’与‘领导力觉醒’。新挑战接踵而至，但正是这些机会让你脱颖而出。你的魄力与决断力会让领导眼前一亮，甚至可能被委以带领小团队的重任。",
     tip: "冲动前深呼吸3秒，大局观让你更无敌；\n带领团队时，多一句鼓励，少一句命令。",
     encouragement: "勇者无惧，智者有谋——你是今年的黑马！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -647,7 +905,7 @@ const fortuneData = {
     zodiac: "虎",
     field: "财运",
     emoji: "💰",
-    overall: "属虎的朋友，2026年财运与'胆识'挂钩！副业或奖金可能带来惊喜，但需控制冲动消费。",
+    overall: "属虎的朋友，2026年财运与‘胆识’紧密挂钩。副业、项目奖金或股权激励可能带来惊喜，但需警惕因一时冲动而过度消费。记住：真正的财富自由，始于理性掌控。",
     tip: "大额支出前，先放购物车冷静24小时；\n赚钱快，更要守住钱。",
     encouragement: "敢拼敢赢，也懂进退，财富自然来敲门！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -657,7 +915,7 @@ const fortuneData = {
     zodiac: "虎",
     field: "感情",
     emoji: "💖",
-    overall: "属虎的你，2026年感情需要'柔软一点'！你的热情是魅力，但也要学会倾听与妥协。",
+    overall: "属虎的你，2026年感情需要‘柔软一点’。你的热情是魅力，但亲密关系不是战场。学会倾听、妥协与共情，你会发现：真正的强大，是既能冲锋陷阵，也能温柔相拥。",
     tip: "争吵时先说'我理解你生气'，再讲道理；\n爱不是征服，是并肩看风景。",
     encouragement: "最酷的你，也值得最暖的拥抱。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -667,7 +925,7 @@ const fortuneData = {
     zodiac: "虎",
     field: "健康",
     emoji: "🏋️",
-    overall: "属虎的你，2026年健康靠'规律'守护！精力旺盛但别透支，运动是你的天然解压阀。",
+    overall: "属虎的你，2026年健康靠‘规律’守护。精力旺盛是你的天赋，但别透支身体。运动是你天然的解压阀，坚持下来，不仅体能提升，心态也会更从容。",
     tip: "每周3次30分钟有氧，状态立马不同；\n熬夜后的补觉，不如早睡一小时。",
     encouragement: "身体是你的战袍，请好好保养。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -679,7 +937,7 @@ const fortuneData = {
     zodiac: "兔",
     field: "事业",
     emoji: "🐰",
-    overall: "属兔的你，2026年事业贵在'灵活应变'！人际关系是你的隐形翅膀，合作中收获成长。",
+    overall: "属兔的你，2026年事业贵在‘灵活应变’与‘人际润滑’。你善于在复杂局面中找到平衡点，合作中既能贡献创意，又能让各方舒服。人际关系是你的隐形翅膀，助你飞得更高更稳。",
     tip: "多参加跨部门会议，机会藏在对话里；\n别过度追求完美，完成比完美更重要。",
     encouragement: "温柔有力量，细致有光芒——你就是团队润滑剂！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -689,7 +947,7 @@ const fortuneData = {
     zodiac: "兔",
     field: "财运",
     emoji: "💰",
-    overall: "属兔的朋友，2026年财运来自'人缘红利'！推荐、合作可能带来额外收入。",
+    overall: "属兔的朋友，2026年财运来自‘人缘红利’。推荐、合作、资源共享可能带来额外收入。你的好口碑就是最好的信用背书，但记得在利他之余，也要保护自己的权益边界。",
     tip: "分享好物/资源时，别忘了保护自己权益；\n小额理财试试水，积少成多。",
     encouragement: "好人缘，好财运，生活甜如蜜。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -699,7 +957,7 @@ const fortuneData = {
     zodiac: "兔",
     field: "感情",
     emoji: "💖",
-    overall: "属兔的你，2026年感情如春风化雨！你的体贴让关系更亲密，单身者易遇温和型缘分。",
+    overall: "属兔的你，2026年感情如春风化雨，润物无声。你的体贴与共情力让关系更亲密。单身者易通过朋友聚会或兴趣小组遇见温和型缘分；有伴的你们，日常小确幸就是最好的浪漫。",
     tip: "主动约朋友聚会，缘分常在不经意间；\n爱是双向奔赴，别只付出不表达需求。",
     encouragement: "你温柔的样子，就是爱情最美的模样。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -709,7 +967,7 @@ const fortuneData = {
     zodiac: "兔",
     field: "健康",
     emoji: "🍵",
-    overall: "属兔的你，2026年健康重在'情绪调节'！敏感细腻的你，要学会给自己减压。",
+    overall: "属兔的你，2026年健康重在‘情绪调节’。敏感细腻是你的天赋，但也容易内耗。学会给情绪一个出口——写日记、泡茶、发呆，都是疗愈自己的方式。",
     tip: "写感恩日记，每天记录3件好事；\n泡杯热茶，发呆10分钟也是疗愈。",
     encouragement: "心安，则身安。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -721,7 +979,7 @@ const fortuneData = {
     zodiac: "龙",
     field: "事业",
     emoji: "🐉",
-    overall: "属龙的你，2026年事业迎来'高光时刻'！你的格局和远见，将赢得关键信任。",
+    overall: "属龙的你，2026年事业迎来‘高光时刻’。你的格局、远见与担当，将赢得关键人物的信任，甚至可能被赋予战略级任务。这一年，你不仅是执行者，更是引领者。",
     tip: "大局思维很棒，但也别忽略执行细节；\n带新人时，多一句指导，少一句'这都不会'。",
     encouragement: "龙腾四海，志在千里——你的舞台，不止于此！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -731,7 +989,7 @@ const fortuneData = {
     zodiac: "龙",
     field: "财运",
     emoji: "💰",
-    overall: "属龙的朋友，2026年财运与'影响力'挂钩！项目奖金、股权激励可能成为亮点。",
+    overall: "属龙的朋友，2026年财运与‘影响力’深度绑定。项目奖金、股权激励、跨界合作分成可能成为亮点。财富增长的同时，别忘配置基础保障，让成功更可持续。",
     tip: "财富增长时，别忘配置保障型保险；\n赚得多，更要规划好。",
     encouragement: "乘势而上，财富自来！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -741,7 +999,7 @@ const fortuneData = {
     zodiac: "龙",
     field: "感情",
     emoji: "💖",
-    overall: "属龙的你，2026年感情需要'接地气'！你的魅力毋庸置疑，但亲密关系需要日常经营。",
+    overall: "属龙的你，2026年感情需要‘接地气’。你的魅力毋庸置疑，但亲密关系不在云端，而在柴米油盐的日常。偶尔放下‘王者姿态’，做回那个会为TA煮一碗面的普通人，反而更动人。",
     tip: "记住TA的喜好，比送贵礼更暖心；\n偶尔放下'王者姿态'，做回普通恋人。",
     encouragement: "最耀眼的龙，也渴望平凡的温暖。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -751,7 +1009,7 @@ const fortuneData = {
     zodiac: "龙",
     field: "健康",
     emoji: "🧘‍♂️",
-    overall: "属龙的你，2026年健康提醒：'别总当超人'！责任重大，但身体是革命本钱。",
+    overall: "属龙的你，2026年健康提醒：‘别总当超人’。责任重大是你的标签，但身体是革命本钱。定期体检、按时吃饭、保证睡眠——这些小事，才是支撑你飞得更高的基石。",
     tip: "定期体检别拖延，预防胜于治疗；\n工作再忙，三餐按时吃。",
     encouragement: "真正的强大，是懂得适时休息。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -763,7 +1021,7 @@ const fortuneData = {
     zodiac: "蛇",
     field: "事业",
     emoji: "🐍",
-    overall: "属蛇的你，2026年事业靠'洞察力'取胜！你能看到别人忽略的机会，策略思维是王牌。",
+    overall: "属蛇的你，2026年事业靠‘洞察力’取胜。你能看到别人忽略的细节与趋势，策略思维是你的王牌。在数据分析、风险预判或创意策划中，你的价值将被充分看见。",
     tip: "分享你的分析，别独自闷头干；\n信任团队，授权也是一种智慧。",
     encouragement: "静水流深，智者先行——你的价值，时间会证明。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -773,7 +1031,7 @@ const fortuneData = {
     zodiac: "蛇",
     field: "财运",
     emoji: "💰",
-    overall: "属蛇的朋友，2026年财运藏在'信息差'里！理财眼光独到，但需警惕高风险诱惑。",
+    overall: "属蛇的朋友，2026年财运藏在‘信息差’与‘冷静判断’中。理财眼光独到，但需警惕高收益陷阱。守住本金、分散风险，是你通往财富自由的稳健路径。",
     tip: "不熟的领域不投，守住本金第一；\n记录每一笔收支，掌控感带来安心。",
     encouragement: "慧眼识珠，稳中求富。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -783,7 +1041,7 @@ const fortuneData = {
     zodiac: "蛇",
     field: "感情",
     emoji: "💖",
-    overall: "属蛇的你，2026年感情需要'打开一点'！你的深情值得被看见，试着多表达感受。",
+    overall: "属蛇的你，2026年感情需要‘打开一点’。你的深情值得被看见，但别总期待对方猜透你的心。试着用语言表达感受，哪怕只是简单一句‘今天有点累，想抱抱’，也能拉近彼此距离。",
     tip: "用'我感觉...'代替'你应该...'，沟通更顺畅；\n爱不是猜谜，直接说'我想你了'也没关系。",
     encouragement: "神秘如你，也值得坦荡的爱。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -793,7 +1051,7 @@ const fortuneData = {
     zodiac: "蛇",
     field: "健康",
     emoji: "🌿",
-    overall: "属蛇的你，2026年健康关注'内在节奏'！思虑过多易耗神，学会放空很重要。",
+    overall: "属蛇的你，2026年健康关注‘内在节奏’。思虑过多易耗神，学会放空很重要。瑜伽、冥想、散步，这些安静的活动能帮你找回身心的平衡。",
     tip: "每天留15分钟'无屏幕时间'；\n瑜伽或太极，很适合你的气质。",
     encouragement: "静心，才能养身。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -805,7 +1063,7 @@ const fortuneData = {
     zodiac: "马",
     field: "事业",
     emoji: "🐎",
-    overall: "属马的你，2026年事业如'骏马奔腾'！行动力超强，新任务一接手就跑出加速度。",
+    overall: "属马的你，2026年事业如‘骏马奔腾’，行动力爆表！新任务一接手就跑出加速度，尤其在需要快速响应、跨地域协作或创新试点的项目中表现亮眼。你的冲劲是团队的引擎，但记得偶尔回头看看细节是否跟上节奏。",
     tip: "快的同时，记得回头检查细节；\n团队协作时，慢半拍听听别人想法。",
     encouragement: "风驰电掣，也要看清方向——你注定不凡！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -815,7 +1073,7 @@ const fortuneData = {
     zodiac: "马",
     field: "财运",
     emoji: "💰",
-    overall: "属马的朋友，2026年财运随'脚步'而来！出差、外派可能带来额外收益。",
+    overall: "属马的朋友，2026年财运随‘脚步’而来。出差、外派、远程协作可能带来额外补贴或项目奖金。你的收入与行动范围成正比，但别让‘赚快钱’的兴奋掩盖了长期财务规划的重要性。",
     tip: "差旅补贴别乱花，存起来有惊喜；\n赚快钱时，想想可持续性。",
     encouragement: "一路向前，财富随行！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -825,7 +1083,7 @@ const fortuneData = {
     zodiac: "马",
     field: "感情",
     emoji: "💖",
-    overall: "属马的你，2026年感情需要'停一停'！热情似火，但亲密关系需要耐心浇灌。",
+    overall: "属马的你，2026年感情需要‘停一停’。你的热情似火，但亲密关系不是短跑，而是马拉松。学会在忙碌中为对方留出专属时间，哪怕只是共进一顿晚餐，也能让爱意持续升温。",
     tip: "约会时放下手机，专注眼前人；\n爱不是赛跑，慢下来才走得远。",
     encouragement: "最自由的马，也愿为一人驻足。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -835,7 +1093,7 @@ const fortuneData = {
     zodiac: "马",
     field: "健康",
     emoji: "🚴",
-    overall: "属马的你，2026年健康靠'动起来'！活力满满，但注意膝盖和脚踝保护。",
+    overall: "属马的你，2026年健康靠‘动起来’守护。活力满满是你的标签，但高强度节奏下需特别注意膝盖、脚踝和腰椎保护。规律运动+充分休息，才能让你这匹骏马持久驰骋。",
     tip: "运动前热身5分钟，避免拉伤；\n熬夜后补觉不如规律作息。",
     encouragement: "奔跑吧，但记得给身体加油！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -847,7 +1105,7 @@ const fortuneData = {
     zodiac: "羊",
     field: "事业",
     emoji: "🐑",
-    overall: "属羊的你，2026年事业贵在'协作共赢'！你的同理心让团队氛围更融洽，创意也更落地。",
+    overall: "属羊的你，2026年事业贵在‘协作共赢’。你的同理心与温和沟通风格，能化解团队摩擦、凝聚共识。在需要创意落地、用户关怀或跨文化合作的场景中，你的价值尤为突出。",
     tip: "多说'我们一起'，少说'我来就行'；\n别怕争取资源，好项目值得支持。",
     encouragement: "温柔坚定，自有力量——你是团队的宝藏！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -857,7 +1115,7 @@ const fortuneData = {
     zodiac: "羊",
     field: "财运",
     emoji: "💰",
-    overall: "属羊的朋友，2026年财运来自'稳健积累'！副业如手作、设计可能带来小惊喜。",
+    overall: "属羊的朋友，2026年财运来自‘稳健积累’与‘兴趣变现’。手作、设计、内容创作等副业可能带来小惊喜。你不追求暴利，但细水长流的收入模式，反而让你睡得更安稳。",
     tip: "小额试水新收入来源，别All in；\n记账习惯坚持下去，年底你会感谢自己。",
     encouragement: "细水长流，终成江海。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -867,7 +1125,7 @@ const fortuneData = {
     zodiac: "羊",
     field: "感情",
     emoji: "💖",
-    overall: "属羊的你，2026年感情如暖阳！你的体贴让关系更甜蜜，单身者易通过朋友介绍认识良缘。",
+    overall: "属羊的你，2026年感情如暖阳照拂。你的体贴与包容让关系更甜蜜。单身者易通过朋友介绍或社群活动认识良缘；有伴的你们，日常的小关心就是最深的浪漫。",
     tip: "主动关心TA的小情绪，爱在细节里；\n别过度牺牲自己，健康的关系是双向付出。",
     encouragement: "你值得被捧在手心，也请好好爱自己。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -877,7 +1135,7 @@ const fortuneData = {
     zodiac: "羊",
     field: "健康",
     emoji: "🧘",
-    overall: "属羊的你，2026年健康重在'自我关怀'！容易为他人操心，别忘了照顾自己。",
+    overall: "属羊的你，2026年健康重在‘自我关怀’。你总是先考虑他人，却容易忽略自己的需求。学会把‘照顾自己’列入每日待办清单——这不是自私，而是可持续关爱他人的前提。",
     tip: "每天留10分钟做自己喜欢的事；\n说'我需要休息'不是自私，是智慧。",
     encouragement: "先点亮自己，才能温暖他人。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -889,7 +1147,7 @@ const fortuneData = {
     zodiac: "猴",
     field: "事业",
     emoji: "🐵",
-    overall: "属猴的你，2026年事业充满'创意火花'！点子王上线，你的灵活思维解决老大难问题。",
+    overall: "属猴的你，2026年事业充满‘创意火花’与‘破局智慧’。面对老大难问题，你总能另辟蹊径找到解法。点子王上线，但别止步于灵光一闪——把创意转化为可执行方案，才是今年的关键突破点。",
     tip: "好点子记得写下来，别让它溜走；\n执行时多一步规划，效果翻倍。",
     encouragement: "机智如你，玩转职场！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -899,7 +1157,7 @@ const fortuneData = {
     zodiac: "猴",
     field: "财运",
     emoji: "💰",
-    overall: "属猴的朋友，2026年财运与'灵感变现'相关！副业、投稿、创意变现都有机会。",
+    overall: "属猴的朋友，2026年财运与‘灵感变现’深度绑定。副业、投稿、短视频、知识付费等轻资产模式都有机会开花结果。你的脑洞就是金矿，但记得：落地执行比空想更重要。",
     tip: "好点子别只停留在脑内，试试落地执行；\n赚快钱时记得留一部分做'安全垫'。",
     encouragement: "聪明脑瓜+踏实行动=财富自由第一步！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -909,7 +1167,7 @@ const fortuneData = {
     zodiac: "猴",
     field: "感情",
     emoji: "💖",
-    overall: "属猴的你，2026年感情需要'走心一点'！幽默是你的情场利器，但真诚才是长久之道。",
+    overall: "属猴的你，2026年感情需要‘走心一点’。幽默是你的情场利器，但长久关系靠的是真诚与陪伴。试着少讲一个段子，多问一句‘你今天过得怎么样？’，你会发现爱意在平凡对话中悄然生长。",
     tip: "约会时少讲段子，多问'你今天开心吗？'；\n别把亲密关系当游戏，认真才动人。",
     encouragement: "最机灵的你，也值得最踏实的爱。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -919,7 +1177,7 @@ const fortuneData = {
     zodiac: "猴",
     field: "健康",
     emoji: "🤸",
-    overall: "属猴的你，2026年健康提醒：'动静结合'！精力旺盛但别透支，久坐办公记得拉伸。",
+    overall: "属猴的你，2026年健康提醒：‘动静结合’是关键。精力旺盛但别透支，久坐办公时记得定时拉伸。你的大脑高速运转，也需要给身体按下暂停键，才能保持高效状态。",
     tip: "每工作1小时，站起来活动3分钟；\n熬夜刷剧不如早睡养神，第二天效率翻倍。",
     encouragement: "灵活如你，也要给身体按下暂停键。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -931,7 +1189,7 @@ const fortuneData = {
     zodiac: "鸡",
     field: "事业",
     emoji: "🐔",
-    overall: "属鸡的你，2026年事业靠'细致出彩'！你的条理性和执行力，让复杂任务变得清晰。",
+    overall: "属鸡的你，2026年事业靠‘细致出彩’赢得尊重。你的条理性、时间管理能力和对品质的执着，让复杂任务变得清晰可控。在需要精准交付、流程优化或质量把控的岗位上，你就是那个让人放心的人。",
     tip: "定期复盘工作流程，优化小细节；\n别过度挑剔自己，完成比完美更重要。",
     encouragement: "一丝不苟的你，就是团队的定海神针！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -941,7 +1199,7 @@ const fortuneData = {
     zodiac: "鸡",
     field: "财运",
     emoji: "💰",
-    overall: "属鸡的朋友，2026年财运来自'精打细算'！预算管理能力突出，意外之财可能来自报销或返现。",
+    overall: "属鸡的朋友，2026年财运来自‘精打细算’与‘系统思维’。预算管理能力突出，报销、返现、积分兑换等‘小钱’也能积少成多。你的财务安全感，源于对每一笔收支的清晰掌控。",
     tip: "用Excel记账，你会爱上数字带来的掌控感；\n小额理财坚持投，时间会给你惊喜。",
     encouragement: "会算更会赚，钱包稳稳涨！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -951,7 +1209,7 @@ const fortuneData = {
     zodiac: "鸡",
     field: "感情",
     emoji: "💖",
-    overall: "属鸡的你，2026年感情需要'柔软表达'！你的直率是优点，但爱也需要委婉和耐心。",
+    overall: "属鸡的你，2026年感情需要‘柔软表达’。你的直率是优点，但爱也需要委婉与耐心。试着用‘肯定+建议’代替直接批评，你会发现：温柔的力量，有时比犀利更有效。",
     tip: "批评前先肯定，比如'你做得很好，如果...就更棒了'；\n多制造小浪漫，哪怕是一句暖心留言。",
     encouragement: "犀利如你，也值得被温柔以待。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -961,7 +1219,7 @@ const fortuneData = {
     zodiac: "鸡",
     field: "健康",
     emoji: "🧘",
-    overall: "属鸡的你，2026年健康关注'放松神经'！容易焦虑操心，学会给自己减压很重要。",
+    overall: "属鸡的你，2026年健康关注‘放松神经’。你容易为小事焦虑操心，但世界不会因你多想一秒而改变。学会把‘必须完美’换成‘足够好’，给大脑减负，身体自然轻松。",
     tip: "每天深呼吸5次，清空杂念；\n周末安排一次'无计划日'，彻底放空。",
     encouragement: "心静了，身体自然轻松。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -973,7 +1231,7 @@ const fortuneData = {
     zodiac: "狗",
     field: "事业",
     emoji: "🐶",
-    overall: "属狗的你，2026年事业靠'忠诚可靠'赢得信任！你的责任感让领导放心交托重任。",
+    overall: "属狗的你，2026年事业靠‘忠诚可靠’赢得深度信任。你的责任感让领导敢把重要任务交给你，同事也愿意与你并肩作战。这一年，你的价值不在于高调表现，而在于关键时刻的‘我在’。",
     tip: "主动汇报进展，别等别人来问；\n团队合作中，多一句'需要我帮忙吗？'。",
     encouragement: "靠谱的人，走到哪里都发光！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -983,7 +1241,7 @@ const fortuneData = {
     zodiac: "狗",
     field: "财运",
     emoji: "💰",
-    overall: "属狗的朋友，2026年财运来自'踏实积累'！加薪、奖金可期，但投资需谨慎保守。",
+    overall: "属狗的朋友，2026年财运来自‘踏实积累’。加薪、年终奖、绩效提成可期，但投资需谨慎保守。你不追求投机，但稳稳当当的收入增长，反而让你拥有最真实的财务自由感。",
     tip: "优先还清高息负债，轻装上阵；\n存一笔'应急基金'，安全感满满。",
     encouragement: "稳稳赚钱，安心生活。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -993,7 +1251,7 @@ const fortuneData = {
     zodiac: "狗",
     field: "感情",
     emoji: "💖",
-    overall: "属狗的你，2026年感情关键词是'信任'！你的专一让人安心，但也别忽略表达爱意。",
+    overall: "属狗的你，2026年感情关键词是‘信任’与‘表达’。你的专一让人安心，但也别以为‘不说TA就懂’。爱要大声说出来，哪怕只是每天一句‘有你真好’，都能让关系更牢固。",
     tip: "每周安排一次专属二人时光；\n爱要大声说，别总以为'TA懂'。",
     encouragement: "忠犬般的你，值得被深深珍惜。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -1003,7 +1261,7 @@ const fortuneData = {
     zodiac: "狗",
     field: "健康",
     emoji: "🏃",
-    overall: "属狗的你，2026年健康靠'规律作息'！责任心强易熬夜，记得按时吃饭睡觉。",
+    overall: "属狗的你，2026年健康靠‘规律作息’守护。责任心强让你容易熬夜加班，但身体不是永动机。设定固定的休息时间，和朋友互相监督运动，你会发现：照顾好自己，才能更好地守护所爱之人。",
     tip: "设定手机自动关屏时间，强制休息；\n和朋友约晨跑，互相监督更有效。",
     encouragement: "照顾好自己，才能守护所爱之人。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -1015,7 +1273,7 @@ const fortuneData = {
     zodiac: "猪",
     field: "事业",
     emoji: "🐷",
-    overall: "属猪的你，2026年事业迎来'福气加持'！人缘好、心态稳，困难时总有人愿意帮你。",
+    overall: "属猪的你，2026年事业迎来‘福气加持’。你的好人缘、乐观心态和务实作风，让困难时刻总有人愿意拉你一把。在需要团队协作、客户维护或氛围营造的岗位上，你的存在本身就是一种幸运。",
     tip: "多参与团队聚餐，信息在饭局中流动；\n别因'太佛系'错过机会，该争取时就出手。",
     encouragement: "随和有智慧，好运自然来！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -1025,7 +1283,7 @@ const fortuneData = {
     zodiac: "猪",
     field: "财运",
     emoji: "💰",
-    overall: "属猪的朋友，2026年财运藏在'人情往来'里！红包、分红、福利可能超预期。",
+    overall: "属猪的朋友，2026年财运藏在‘人情往来’与‘意外之喜’中。红包、分红、福利、老友推荐的合作机会可能超预期。你享受生活，但也懂得量入为出，这种平衡感正是财富长久之道。",
     tip: "收到意外之财，先存一半再消费；\n别因面子乱花钱，真正的朋友不在意排场。",
     encouragement: "福气满满，财源滚滚！",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -1035,7 +1293,7 @@ const fortuneData = {
     zodiac: "猪",
     field: "感情",
     emoji: "💖",
-    overall: "属猪的你，2026年感情如春风拂面！你的包容让关系更和谐，单身者易遇温暖型缘分。",
+    overall: "属猪的你，2026年感情如春风拂面。你的包容与豁达让关系更和谐。单身者易遇温暖型缘分，对方可能就在你的朋友圈或兴趣圈中；有伴的你们，日常陪伴就是最深的告白。",
     tip: "主动关心家人朋友，爱在日常中；\n别把'将就'当'知足'，你值得双向奔赴。",
     encouragement: "心宽体胖，爱也丰盛。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
@@ -1045,56 +1303,44 @@ const fortuneData = {
     zodiac: "猪",
     field: "健康",
     emoji: "🍲",
-    overall: "属猪的你，2026年健康重点是'饮食平衡'！享受美食的同时，别忘了运动搭配。",
+    overall: "属猪的你，2026年健康重点是‘饮食平衡’与‘适度运动’。你热爱美食，但别让享受变成负担。七分饱、饭后散步、定期体检，这些小习惯能让你在享受生活的同时，保持轻盈状态。",
     tip: "每餐七分饱，健康又轻盈；\n饭后散步15分钟，助消化又解压。",
     encouragement: "好好吃饭，好好生活，就是最好的养生。",
     disclaimer: "本运势纯属娱乐，愿你在2026闪闪发光！"
   }
 };
 
-// 生肖和领域映射
-const zodiacOptions = [
-  {key: 'shu', name: '鼠', emoji: '🐭'},
-  {key: 'niu', name: '牛', emoji: '🐮'},
-  {key: 'hu', name: '虎', emoji: '🐯'},
-  {key: 'tu', name: '兔', emoji: '🐰'},
-  {key: 'long', name: '龙', emoji: '🐉'},
-  {key: 'she', name: '蛇', emoji: '🐍'},
-  {key: 'ma', name: '马', emoji: '🐎'},
-  {key: 'yang', name: '羊', emoji: '🐑'},
-  {key: 'hou', name: '猴', emoji: '🐵'},
-  {key: 'ji', name: '鸡', emoji: '🐔'},
-  {key: 'gou', name: '狗', emoji: '🐶'},
-  {key: 'zhu', name: '猪', emoji: '🐷'}
-];
-
-const fieldOptions = [
-  {key: 'shiye', name: '事业', emoji: '💼'},
-  {key: 'caiyun', name: '财运', emoji: '💰'},
-  {key: 'ganqing', name: '感情', emoji: '💖'},
-  {key: 'jiankang', name: '健康', emoji: '🏃'}
-];
-
-// 获取运势的函数
-function getFortune(zodiacKey, fieldKey) {
-  const key = `${zodiacKey}_${fieldKey}`;
-  return fortuneData[key] || null;
-}
-        // 插入上面提供的所有JavaScript数据...
-        // 包括 fortuneData, zodiacOptions, fieldOptions, getFortune 函数等
-    </script>
-    
-    <script>
         // 页面初始化
         document.addEventListener('DOMContentLoaded', function() {
             initZodiacGrid();
             initFieldGrid();
-            initCountdown();
+            createVirtualRedEnvelopes();
+            
+            // 页面加载完成后随机触发一次惊喜彩蛋
+            setTimeout(() => {
+                if (Math.random() > 0.7) { // 30%概率触发
+                    triggerRandomSurprise();
+                }
+            }, 2000);
+            
+            // 监听页面点击事件，随机触发彩蛋
+            let clickCount = 0;
+            document.addEventListener('click', function(e) {
+                clickCount++;
+                // 每点击10次有20%概率触发彩蛋
+                if (clickCount % 10 === 0 && Math.random() > 0.8) {
+                    triggerRandomSurprise();
+                }
+                
+                // 点击特效
+                createClickEffect(e.clientX, e.clientY);
+            });
         });
 
         // 初始化生肖选择网格
         function initZodiacGrid() {
             const zodiacGrid = document.getElementById('zodiacGrid');
+            zodiacGrid.innerHTML = '';
             zodiacOptions.forEach(zodiac => {
                 const btn = document.createElement('button');
                 btn.className = 'zodiac-btn';
@@ -1110,6 +1356,7 @@ function getFortune(zodiacKey, fieldKey) {
         // 初始化领域选择网格
         function initFieldGrid() {
             const fieldGrid = document.getElementById('fieldGrid');
+            fieldGrid.innerHTML = '';
             fieldOptions.forEach(field => {
                 const btn = document.createElement('button');
                 btn.className = 'field-btn';
@@ -1122,20 +1369,65 @@ function getFortune(zodiacKey, fieldKey) {
             });
         }
 
-        // 选择生肖
+        // 选择生肖（添加特殊边框效果）
         let selectedZodiac = null;
         function selectZodiac(zodiacKey) {
             selectedZodiac = zodiacKey;
             const buttons = document.querySelectorAll('.zodiac-btn');
+            
             buttons.forEach(btn => {
                 const zodiacName = btn.querySelector('div:last-child').textContent;
                 const zodiac = zodiacOptions.find(z => z.name === zodiacName);
                 if (zodiac && zodiac.key === zodiacKey) {
                     btn.classList.add('selected');
+                    
+                    // 30%概率触发特殊边框效果
+                    if (Math.random() > 0.7) {
+                        btn.classList.add('special-border');
+                        setTimeout(() => {
+                            btn.classList.remove('special-border');
+                        }, 2000); // 2秒后移除特殊边框
+                        
+                        // 显示提示
+                        showSpecialBorderEffect(zodiac);
+                    }
+                    
+                    // 添加点击效果
+                    createClickEffect(btn);
                 } else {
                     btn.classList.remove('selected');
+                    btn.classList.remove('special-border');
                 }
             });
+            
+            // 选择生肖后也有概率触发惊喜
+            if (Math.random() > 0.8) { // 20%概率
+                setTimeout(() => {
+                    triggerRandomSurprise();
+                }, 500);
+            }
+        }
+
+        // 显示特殊边框效果提示
+        function showSpecialBorderEffect(zodiac) {
+            const effect = document.createElement('div');
+            effect.textContent = `✨ ${zodiac.name}年幸运加成！`;
+            effect.style.position = 'fixed';
+            effect.style.top = '20px';
+            effect.style.left = '50%';
+            effect.style.transform = 'translateX(-50%)';
+            effect.style.background = 'linear-gradient(135deg, #ff6b6b, #ffa502)';
+            effect.style.color = 'white';
+            effect.style.padding = '10px 20px';
+            effect.style.borderRadius = '20px';
+            effect.style.fontWeight = 'bold';
+            effect.style.zIndex = '1000';
+            effect.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            effect.style.animation = 'fadeIn 0.5s, fadeOut 0.5s 1.5s forwards';
+            
+            document.body.appendChild(effect);
+            
+            setTimeout(() => effect.remove(), 2000);
         }
 
         // 选择领域
@@ -1148,10 +1440,179 @@ function getFortune(zodiacKey, fieldKey) {
                 const field = fieldOptions.find(f => f.name === fieldName);
                 if (field && field.key === fieldKey) {
                     btn.classList.add('selected');
+                    // 添加点击效果
+                    createClickEffect(btn);
                 } else {
                     btn.classList.remove('selected');
                 }
             });
+        }
+
+        // 点击效果
+        function createClickEffect(element) {
+            if (typeof element === 'object' && element.getBoundingClientRect) {
+                const rect = element.getBoundingClientRect();
+                createClickEffectAt(rect.left + rect.width/2, rect.top + rect.height/2);
+            }
+        }
+        
+        function createClickEffectAt(x, y) {
+            const effect = document.createElement('div');
+            effect.className = 'click-effect';
+            effect.textContent = '✨';
+            effect.style.left = x + 'px';
+            effect.style.top = y + 'px';
+            effect.style.fontSize = '1.5rem';
+            
+            document.body.appendChild(effect);
+            
+            setTimeout(() => effect.remove(), 1000);
+        }
+
+        // 创建虚拟红包
+        function createVirtualRedEnvelopes() {
+            const container = document.getElementById('redEnvelopeContainer');
+            container.innerHTML = '';
+            
+            // 创建3-5个虚拟红包
+            const envelopeCount = 3 + Math.floor(Math.random() * 3);
+            
+            for (let i = 0; i < envelopeCount; i++) {
+                setTimeout(() => {
+                    const envelope = document.createElement('div');
+                    envelope.className = 'virtual-red-envelope';
+                    envelope.innerHTML = '🧧';
+                    
+                    // 随机位置
+                    const left = 10 + Math.random() * 80;
+                    const top = 10 + Math.random() * 80;
+                    envelope.style.left = left + '%';
+                    envelope.style.top = top + '%';
+                    
+                    // 随机动画延迟
+                    envelope.style.animationDelay = (Math.random() * 2) + 's';
+                    
+                    // 点击事件
+                    envelope.addEventListener('click', function() {
+                        openVirtualRedEnvelope(this);
+                    });
+                    
+                    container.appendChild(envelope);
+                    
+                    // 红包显示8-15秒后自动消失
+                    setTimeout(() => {
+                        if (envelope.parentNode) {
+                            envelope.style.opacity = '0';
+                            envelope.style.transition = 'opacity 1s';
+                            setTimeout(() => {
+                                if (envelope.parentNode) {
+                                    envelope.remove();
+                                }
+                            }, 1000);
+                        }
+                    }, 8000 + Math.random() * 7000);
+                }, i * 1000); // 每隔1秒创建一个
+            }
+        }
+
+        // 打开虚拟红包
+        function openVirtualRedEnvelope(envelope) {
+            // 随机选择一个奖励
+            const reward = redEnvelopeRewards[Math.floor(Math.random() * redEnvelopeRewards.length)];
+            
+            // 显示奖励
+            const rewardElement = document.createElement('div');
+            rewardElement.textContent = reward;
+            rewardElement.style.position = 'fixed';
+            rewardElement.style.left = envelope.style.left;
+            rewardElement.style.top = envelope.style.top;
+            rewardElement.style.color = '#ff3838';
+            rewardElement.style.fontWeight = 'bold';
+            rewardElement.style.fontSize = '1.5rem';
+            rewardElement.style.zIndex = '1001';
+            rewardElement.style.textShadow = '2px 2px 4px rgba(0,0,0,0.3)';
+            rewardElement.style.animation = 'float-up 2s ease-out forwards';
+            
+            document.body.appendChild(rewardElement);
+            
+            // 播放音效（模拟）
+            playRewardSound();
+            
+            // 移除红包
+            envelope.style.transform = 'scale(0)';
+            envelope.style.transition = 'transform 0.5s';
+            
+            setTimeout(() => {
+                envelope.remove();
+                rewardElement.remove();
+            }, 2000);
+            
+            // 10%概率触发惊喜彩蛋
+            if (Math.random() > 0.9) {
+                setTimeout(() => {
+                    triggerRandomSurprise();
+                }, 1000);
+            }
+        }
+
+        // 播放奖励音效（模拟）
+        function playRewardSound() {
+            // 这里可以使用Web Audio API播放简单音效
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                console.log('音效播放失败:', e);
+            }
+        }
+
+        // 触发随机惊喜彩蛋
+        function triggerRandomSurprise() {
+            const randomSurprise = surpriseContents[Math.floor(Math.random() * surpriseContents.length)];
+            showSurpriseModal(randomSurprise);
+        }
+
+        // 手动触发惊喜彩蛋
+        function triggerSurpriseManually() {
+            triggerRandomSurprise();
+        }
+
+        // 显示惊喜彩蛋弹窗
+        function showSurpriseModal(surprise) {
+            document.getElementById('surpriseIcon').textContent = surprise.icon;
+            document.getElementById('surpriseTitle').textContent = surprise.title;
+            document.getElementById('surpriseContent').textContent = surprise.content;
+            
+            document.getElementById('modalOverlay').classList.add('show');
+            document.getElementById('surpriseModal').classList.add('show');
+            
+            // 添加庆祝效果
+            createCelebrationEffect();
+            
+            // 20秒后自动关闭
+            setTimeout(() => {
+                hideSurprise();
+            }, 20000);
+        }
+
+        // 隐藏惊喜彩蛋弹窗
+        function hideSurprise() {
+            document.getElementById('modalOverlay').classList.remove('show');
+            document.getElementById('surpriseModal').classList.remove('show');
         }
 
         // 获取运势结果
@@ -1164,21 +1625,35 @@ function getFortune(zodiacKey, fieldKey) {
             // 显示加载动画
             document.getElementById('loading').style.display = 'block';
             document.getElementById('predictBtn').disabled = true;
+            document.getElementById('fortuneResult').style.display = 'none';
 
             // 模拟网络请求延迟
             setTimeout(() => {
-                const fortune = getFortune(selectedZodiac, selectedField);
+                // 这里需要运势数据库，您可以根据需要添加
+                // 示例：const fortune = fortuneData[`${selectedZodiac}_${selectedField}`];
+                
+const fortune = fortuneData[`${selectedZodiac}_${selectedField}`];
                 
                 if (!fortune) {
                     alert('运势数据加载失败，请稍后重试！');
                     return;
                 }
-
+                
+                // 生成随机运势评级（3-5星）
+                const rating = Math.floor(Math.random() * 3) + 3;
+                
                 // 更新UI显示运势
                 document.getElementById('fortuneTitle').textContent = 
                     `${fortune.emoji} ${fortune.zodiac}年生肖 • ${fortune.field}运势`;
                 document.getElementById('fortuneSubtitle').textContent = 
                     `${fortune.zodiac}年的你，2026年好运相伴！`;
+                
+                // 设置评级星星
+                updateRatingStars(rating);
+                document.getElementById('fortuneLevel').textContent = 
+                    `运势评级：${rating}星（满分5星）`;
+                
+                // 使用真实运势数据
                 document.getElementById('overall').textContent = fortune.overall;
                 document.getElementById('tip').textContent = fortune.tip;
                 document.getElementById('encouragement').textContent = fortune.encouragement;
@@ -1191,9 +1666,97 @@ function getFortune(zodiacKey, fieldKey) {
 
                 // 滚动到结果区域
                 document.getElementById('fortuneResult').scrollIntoView({
-                    behavior: 'smooth'
+                    behavior: 'smooth',
+                    block: 'start'
                 });
-            }, 800);
+                
+                // 添加庆祝效果
+                createCelebrationEffect();
+                
+                // 25%概率在获取运势后触发惊喜彩蛋
+                if (Math.random() > 0.75) {
+                    setTimeout(() => {
+                        triggerRandomSurprise();
+                    }, 1000);
+                }
+                
+            }, 1000);
+        }
+
+        // 更新评级星星
+        function updateRatingStars(rating) {
+            const starsContainer = document.getElementById('ratingStars');
+            starsContainer.innerHTML = '';
+            
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('div');
+                star.className = 'star' + (i <= rating ? ' active' : '');
+                star.innerHTML = '★';
+                star.style.animationDelay = (i * 0.2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // 创建庆祝效果
+        function createCelebrationEffect() {
+            // 创建一些庆祝元素
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const emojis = ['✨', '🎉', '🎊', '🌟', '💫'];
+                    const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                    
+                    const effect = document.createElement('div');
+                    effect.textContent = emoji;
+                    effect.style.position = 'fixed';
+                    effect.style.left = Math.random() * 100 + 'vw';
+                    effect.style.top = '100vh';
+                    effect.style.fontSize = '2rem';
+                    effect.style.pointerEvents = 'none';
+                    effect.style.zIndex = '1000';
+                    effect.style.animation = 'float-up 2s ease-out forwards';
+                    
+                    document.body.appendChild(effect);
+                    
+                    setTimeout(() => effect.remove(), 2000);
+                }, i * 200);
+            }
+        }
+
+        // 随机抽签
+        function drawRandomFortune() {
+            // 随机选择生肖和领域
+            const randomZodiac = zodiacOptions[Math.floor(Math.random() * zodiacOptions.length)];
+            const randomField = fieldOptions[Math.floor(Math.random() * fieldOptions.length)];
+            
+            // 自动选择
+            selectedZodiac = randomZodiac.key;
+            selectedField = randomField.key;
+            
+            // 更新UI选择状态
+            selectZodiac(selectedZodiac);
+            selectField(selectedField);
+            
+            // 显示提示
+            const resultCard = document.querySelector('.selection-card');
+            resultCard.style.animation = 'none';
+            setTimeout(() => {
+                resultCard.style.animation = 'pulse 0.5s';
+                setTimeout(() => {
+                    resultCard.style.animation = '';
+                }, 500);
+            }, 10);
+            
+            // 自动获取运势结果
+            setTimeout(() => {
+                getFortuneResult();
+            }, 500);
+            
+            // 40%概率触发惊喜彩蛋
+            if (Math.random() > 0.6) {
+                setTimeout(() => {
+                    triggerRandomSurprise();
+                }, 1500);
+            }
         }
 
         // 分享运势
@@ -1216,40 +1779,77 @@ function getFortune(zodiacKey, fieldKey) {
             } else {
                 // 复制到剪贴板
                 navigator.clipboard.writeText(shareText + '\n' + window.location.href)
-                    .then(() => alert('分享链接已复制到剪贴板！'));
+                    .then(() => {
+                        // 显示复制成功提示
+                        const tip = document.createElement('div');
+                        tip.textContent = '分享链接已复制到剪贴板！';
+                        tip.style.position = 'fixed';
+                        tip.style.top = '20px';
+                        tip.style.left = '50%';
+                        tip.style.transform = 'translateX(-50%)';
+                        tip.style.background = 'linear-gradient(135deg, #4b7bec, #3867d6)';
+                        tip.style.color = 'white';
+                        tip.style.padding = '10px 20px';
+                        tip.style.borderRadius = '20px';
+                        tip.style.fontWeight = 'bold';
+                        tip.style.zIndex = '1000';
+                        tip.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                        tip.style.animation = 'fadeIn 0.5s, fadeOut 0.5s 1.5s forwards';
+                        
+                        document.body.appendChild(tip);
+                        
+                        setTimeout(() => tip.remove(), 2000);
+                    });
+            }
+            
+            // 分享后30%概率触发惊喜
+            if (Math.random() > 0.7) {
+                setTimeout(() => {
+                    triggerRandomSurprise();
+                }, 1000);
             }
         }
 
-        // 初始化倒计时（示例）
-        function initCountdown() {
-            // 这里可以添加实际的倒计时逻辑
-            const daysCount = document.getElementById('daysCount');
-            // 示例：每天减少一天
-            let days = 365;
-            const today = new Date();
-            const startOfYear = new Date(today.getFullYear(), 0, 0);
-            const diff = today - startOfYear;
-            const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
-            daysCount.textContent = 365 - dayOfYear;
+        // 重置选择
+        function resetSelection() {
+            selectedZodiac = null;
+            selectedField = null;
+            
+            // 清除选择状态
+            document.querySelectorAll('.zodiac-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.classList.remove('special-border');
+            });
+            document.querySelectorAll('.field-btn').forEach(btn => btn.classList.remove('selected'));
+            
+            // 隐藏结果
+            document.getElementById('fortuneResult').style.display = 'none';
+            
+            // 重新创建虚拟红包
+            createVirtualRedEnvelopes();
+            
+            // 滚动到顶部
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
 
-        // 随机获取运势（备用功能）
-        function getRandomFortune() {
-            const zodiacKeys = Object.keys(fortuneData);
-            const randomKey = zodiacKeys[Math.floor(Math.random() * zodiacKeys.length)];
-            const fortune = fortuneData[randomKey];
+        // 为页面添加CSS动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
             
-            // 自动选择对应的生肖和领域
-            selectedZodiac = fortune.id.split('_')[0];
-            selectedField = fortune.id.split('_')[1];
-            
-            // 更新UI选择状态
-            selectZodiac(selectedZodiac);
-            selectField(selectedField);
-            
-            // 获取运势结果
-            getFortuneResult();
-        }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
